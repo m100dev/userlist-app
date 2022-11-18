@@ -1,6 +1,9 @@
-import './App.css';
+import React, { useState } from 'react';
+
 import NewUsers from './components/NewUsers/NewUsers';
 import UserList from './components/UserList';
+
+import './App.css';
 
 const DUMMY_USERS = [
   {
@@ -21,13 +24,23 @@ const DUMMY_USERS = [
 
 ];
 
-console.log('in app')
-
 function App() {
+  const[userData, setUserData] = useState(DUMMY_USERS);
+
+  const addNewUser = (newUser) => {
+    const user = {
+      ...newUser
+    };
+
+    setUserData((prevUserData) => [...prevUserData, user]);
+  };
+
+  console.log(userData);
+
   return (
     <div className="App">
-      <NewUsers />
-      <UserList userItem={DUMMY_USERS} />
+      <NewUsers onSaveUserData={addNewUser} />
+      <UserList userItem={userData} />
     </div>
   );
 }

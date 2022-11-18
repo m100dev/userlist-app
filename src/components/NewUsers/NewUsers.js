@@ -5,9 +5,18 @@ import NewUsersForm from './NewUsersForm';
 import './NewUsers.css';
 
 const NewUsers = props => {
+
+    const saveSubmitData = (savedData) => {
+        const newUserData = {
+            ...savedData
+        }
+
+        props.onSaveUserData(newUserData);
+    };
+
     return (
         <Card>
-            <NewUsersForm />
+            <NewUsersForm onSaveSubmitData={saveSubmitData}/>
         </Card>
     );
 };

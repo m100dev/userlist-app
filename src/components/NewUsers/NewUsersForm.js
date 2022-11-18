@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import './NewUsersForm.css';
 
 const NewUsersForm = props => {
 
     const[userName, setUserName] = useState('');
-    const[userAge, setUserAge] = useState('')
+    const[userAge, setUserAge] = useState('');
 
     const handleUserChange = (event) => {
         setUserName((prevName) => setUserName(event.target.value));
@@ -18,14 +19,21 @@ const NewUsersForm = props => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        if(userName.trim().length === 0 || userAge <= 0) {
+            return;
+        }
+
         const newUser = {
-            id: Math.round(Math.random() * 5000),
+            id: uuidv4(),
             name: userName,
             age: userAge
         };
 
-        console.log('A new user was added', newUser);
-    }
+        props.onSaveSubmitData(newUser);
+
+        setUserName('');
+        setUserAge('');
+    };
 
     return (
         <form className='user-form' onSubmit={handleSubmit}>
@@ -35,13 +43,15 @@ const NewUsersForm = props => {
                     className='user-form__input' 
                     type='text' 
                     placeholder='John Doe' 
+                    value={userName}
                     onChange={handleUserChange} 
                 />
                 <label className='user-form__label'>Age (Years)</label>
                 <input 
                     className='user-form__input' 
-                    type='text' 
+                    type='number' 
                     placeholder='Enter your age'
+                    value={userAge}
                     onChange={handleAgeChange} 
                 />
             </div>

@@ -5,8 +5,6 @@ import './UserList.css';
 
 const UserList = props => {
     
-    console.log(props.userItem);
-    
     return (
         <Card>
             <ul className='user-list'>
