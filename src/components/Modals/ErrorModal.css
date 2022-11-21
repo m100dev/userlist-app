@@ -1,0 +1,46 @@
+.modal-error {
+    box-sizing: border-box;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    z-index: 5;
+    background-color: white;
+    width: 54%;
+    margin: auto;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.modal-error__header {
+    background-color: rgb(105, 0, 105);
+    color: white;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.modal-error__content {
+    font-weight: 500;
+}
+
+.modal-error__actions {
+    text-align: right;
+}
+
+.modal-error__actions button {
+    background-color: rgb(85, 0, 85);
+    border: 1px solid rgb(85, 0, 85);
+    color: white;
+    padding: 3px 10px
+}
+
+.modal-error__actions button:hover {
+    background-color: purple;
+}
+
+.modal-error__header,
+.modal-error__content,
+.modal-error__actions {
+    padding: .7rem;
+}
