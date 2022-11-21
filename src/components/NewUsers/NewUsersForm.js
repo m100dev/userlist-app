@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorModal from '../Modals/ErrorModal';
-import Card from '../../utility/Card';
+import Card from '../UI/Card';
 
 import './NewUsersForm.css';
 
@@ -32,7 +32,7 @@ const NewUsersForm = props => {
         };
 
         // Checks if user provided a valid age
-        if(userAge <= 0) {
+        if(+userAge <= 0) {
             const message = 'Please enter a valid age greater than 0';
             setErrorMessage(message);
             setShowErrorModal(true);

@@ -1,5 +1,5 @@
 import React from 'react';
-import BackDrop from '../../utility/BackDrop';
+import BackDrop from '../UI/BackDrop';
 
 import './ErrorModal.css';
 
