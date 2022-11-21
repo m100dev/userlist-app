@@ -1,31 +1,13 @@
 import React, { useState } from 'react';
 
-import NewUsers from './components/NewUsers/NewUsers';
+import NewUsersForm from './components/NewUsers/NewUsersForm';
 import UserList from './components/UserList';
 
 import './App.css';
 
-const DUMMY_USERS = [
-  {
-    id: 'e1',
-    name: 'John',
-    age: 55
-  },
-  {
-    id: 'e2',
-    name: 'Darren',
-    age: 46
-  },
-  {
-    id: 'e3',
-    name: 'Susy',
-    age: 31
-  },
-
-];
-
 function App() {
-  const[userData, setUserData] = useState(DUMMY_USERS);
+
+  const[userData, setUserData] = useState('');
 
   const addNewUser = (newUser) => {
     const user = {
@@ -35,12 +17,10 @@ function App() {
     setUserData((prevUserData) => [...prevUserData, user]);
   };
 
-  console.log(userData);
-
   return (
     <div className="App">
-      <NewUsers onSaveUserData={addNewUser} />
-      <UserList userItem={userData} />
+      <NewUsersForm onSaveUserData={addNewUser} />
+      {userData.length > 0 && <UserList userItem={userData} />}
     </div>
   );
 }

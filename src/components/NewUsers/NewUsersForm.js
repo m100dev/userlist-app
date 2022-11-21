@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorModal from '../Modals/ErrorModal';
+import Card from '../../utility/Card';
 
 import './NewUsersForm.css';
 
@@ -9,46 +10,62 @@ const NewUsersForm = props => {
     const[userName, setUserName] = useState('');
     const[userAge, setUserAge] = useState('');
     const[showErrorModal, setShowErrorModal] = useState(false);
+    const[errorMessage, setErrorMessage] = useState('There was an error with adding your user');
 
     const handleUserChange = (event) => {
-        setUserName((prevName) => setUserName(event.target.value));
-    }
+        setUserName(event.target.value);
+    };
     
     const handleAgeChange = (event) => {
-        setUserAge((prevAge) => setUserAge(event.target.value));
-    }
+        setUserAge(event.target.value);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if(userName.trim().length === 0 || userAge <= 0) {
+        // Checks if the user provided a name
+        if(userName.trim().length === 0) {
+            const message = 'Please enter a valid name and age (non-empty values)';
+            setErrorMessage(message);
             setShowErrorModal(true);
             return;
-        }
+        };
 
+        // Checks if user provided a valid age
+        if(userAge <= 0) {
+            const message = 'Please enter a valid age greater than 0';
+            setErrorMessage(message);
+            setShowErrorModal(true);
+            return;
+        };
+
+        // Creating new state to be passed to parent component to update userData state
         const newUser = {
             id: uuidv4(),
             name: userName,
             age: userAge
         };
 
-        props.onSaveSubmitData(newUser);
+        // Lifting up new user State
+        props.onSaveUserData(newUser);
 
+        // Clearing form input fields
         setUserName('');
         setUserAge('');
     };
 
-    if(setShowErrorModal) {
-
-    }
+    // Retrieves ErrorModal state from ErrorModal component
+    const saveErrorModalClose = errorModalState => {
+        setShowErrorModal(errorModalState);
+    };
 
     return (
-        <>
-            {showErrorModal && <ErrorModal errorMessage='test message'/>}
+        <Card>
+            {showErrorModal && <ErrorModal errorMessage={errorMessage} onSaveErrorModalClose={saveErrorModalClose}/>}
             <form className='user-form' onSubmit={handleSubmit}>
                 <div>
                     <label className='user-form__label'>Username</label>
-                    <input 
+                    <input
                         className='user-form__input' 
                         type='text' 
                         placeholder='John Doe' 
@@ -68,7 +85,7 @@ const NewUsersForm = props => {
                     <button type='submit'>Add User</button>
                 </div>
             </form>
-        </>
+        </Card>
     );
 };
 

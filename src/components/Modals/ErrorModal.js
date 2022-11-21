@@ -5,10 +5,10 @@ import './ErrorModal.css';
 
 const ErrorModal = (props) => {
 
-
-
+    // When the user clicks on the okay, it sends state info to parent component 
+    // to update the showErrorModal state.
     const handleModalClose = () => {
-        console.log('modal close')
+        props.onSaveErrorModalClose(false);
     };
 
     return (
