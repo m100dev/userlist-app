@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorModal from '../Modals/ErrorModal';
 import Card from '../UI/Card';
@@ -6,6 +6,8 @@ import Card from '../UI/Card';
 import './NewUsersForm.css';
 
 const NewUsersForm = props => {
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
 
     const[userName, setUserName] = useState('');
     const[userAge, setUserAge] = useState('');
@@ -22,6 +24,10 @@ const NewUsersForm = props => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        // Logging out the values of the references created with useRef()
+        console.log(nameInputRef.current.value);
+        console.log(ageInputRef.current.value);
 
         // Checks if the user provided a name
         if(userName.trim().length === 0) {
@@ -70,7 +76,8 @@ const NewUsersForm = props => {
                         type='text' 
                         placeholder='John Doe' 
                         value={userName}
-                        onChange={handleUserChange} 
+                        onChange={handleUserChange}
+                        ref={nameInputRef} 
                     />
                     <label className='user-form__label'>Age (Years)</label>
                     <input 
@@ -78,7 +85,8 @@ const NewUsersForm = props => {
                         type='number' 
                         placeholder='Enter your age'
                         value={userAge}
-                        onChange={handleAgeChange} 
+                        onChange={handleAgeChange}
+                        ref={ageInputRef} 
                     />
                 </div>
                 <div className='user-form__actions'>
